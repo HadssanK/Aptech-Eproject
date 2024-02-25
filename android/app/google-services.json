@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "177722519530",
+    "project_id": "fullcrud-31cf3",
+    "storage_bucket": "fullcrud-31cf3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:177722519530:android:0499a22483b2b2231acc93",
+        "android_client_info": {
+          "package_name": "com.example.eproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlH6QEKR6IB_2O37MehsuQc7JOwLkp8Tw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
