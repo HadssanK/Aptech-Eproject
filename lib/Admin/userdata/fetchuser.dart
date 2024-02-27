@@ -29,6 +29,7 @@ class _UserFetchState extends State<UserFetch> {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
+
             TextField(
               controller: _searchController,
               decoration: InputDecoration(

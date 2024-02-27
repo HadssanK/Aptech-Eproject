@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eproject/screen_Pages/description.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,30 @@ class MyHomepage extends StatefulWidget {
 
 class _MyHomepageState extends State<MyHomepage> {
   bool _isSearchBarOpened = false;
+
+  TextEditingController _reviewController = TextEditingController();
+  double _rating = 0;
+
+  void submitReview() async {
+    if (_reviewController.text.isEmpty || _rating == 0) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Please enter review and rating")));
+      return;
+    }
+
+    // Assuming 'reviews' is the collection name in Firestore
+    await FirebaseFirestore.instance.collection('reviews').add({
+      'review': _reviewController.text,
+      'rating': _rating,
+      'timestamp': Timestamp.now(),
+      // You can add other fields like user ID, attraction ID, etc. as needed
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Review submitted successfully")));
+    _reviewController.clear();
+    setState(() {
+      _rating = 0;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -118,6 +143,41 @@ class _MyHomepageState extends State<MyHomepage> {
                     ),
                   ),
                 ),
+              ),
+           SizedBox(height: 20,),
+              Text("Send Feadback",style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.black
+              ),),
+              SizedBox(height: 15,),
+              TextFormField(
+                controller: _reviewController,
+                maxLines: null, // Allow multiline input
+                decoration: InputDecoration(
+                  labelText: 'Review',
+                  hintText: 'Enter your review',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 20),
+              Text('Rating:', style: TextStyle(fontSize: 16)),
+              SizedBox(height: 10),
+              Slider(
+                value: _rating,
+                min: 0,
+                max: 5,
+                divisions: 5,
+                onChanged: (value) {
+                  setState(() {
+                    _rating = value;
+                  });
+                },
+                label: _rating.toStringAsFixed(1),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: submitReview,
+                child: Text('Submit Review'),
               ),
 
             ],

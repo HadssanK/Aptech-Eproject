@@ -1,5 +1,10 @@
-import 'package:eproject/screen_Pages/description.dart';
+import 'package:eproject/Admin/Cities/cities_screen.dart';
+import 'package:eproject/Admin/Events/allevents.dart';
+import 'package:eproject/Admin/Hotals/hotals.dart';
+import 'package:eproject/Admin/Restourent/Myrestourant.dart';
+import 'package:eproject/Admin/userdata/fetchuser.dart';
 import 'package:flutter/material.dart';
+
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
 
@@ -8,9 +13,9 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  List colors=[Colors.grey,Colors.deepOrangeAccent,Colors.brown,Colors.blueAccent];
+  List colors=[Colors.grey,Colors.deepOrangeAccent,Colors.brown,Colors.blueAccent,Colors.deepPurpleAccent];
   int color = 0;
-  List User = ["User","Ceties","Hotals","Restourent"];
+  List User = ["User","Ceties","Hotals","Restourent","Events"];
   int id = 0;
 
   @override
@@ -19,6 +24,14 @@ class _DashboardPageState extends State<DashboardPage> {
       drawer: Drawer(
         width: 200,
         backgroundColor: Colors.lightGreen,
+        child: Column(
+          children: [
+            ListTile(
+              title: Text("sdf"),
+              subtitle: Text("sdf"),
+            )
+          ],
+        ),
       ),
       appBar: AppBar(
         title: Text("Dashboad"),
@@ -32,6 +45,7 @@ class _DashboardPageState extends State<DashboardPage> {
       body: Container(
         child: Column(
           children: [
+
             Container(
               margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
               width: double.infinity,
@@ -39,7 +53,7 @@ class _DashboardPageState extends State<DashboardPage> {
               child:GridView.builder(
                 physics: ScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: 4,
+                itemCount: User.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 10,
@@ -48,9 +62,19 @@ class _DashboardPageState extends State<DashboardPage> {
                 ),
                 itemBuilder: (context, index) {
                   return GestureDetector(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Description(),));
-                    },
+                      onTap: () {
+                        if (index == 0) {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => UserFetch()),);
+                        } else if (index == 1) {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => CetiesPage()),);
+                        } else if (index == 2) {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => HotalsPage()),);
+                        } else if (index == 3) {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => RestourentScreen()),);
+                        }else if (index == 4) {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => AllEvents()),);
+                        }
+                      },
                     child: Container(
                       decoration: BoxDecoration(
                           color: colors[index],
