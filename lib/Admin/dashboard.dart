@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eproject/Admin/Cities/cities_screen.dart';
 import 'package:eproject/Admin/Events/allevents.dart';
 import 'package:eproject/Admin/Hotals/hotals.dart';
 import 'package:eproject/Admin/Restourent/Myrestourant.dart';
 import 'package:eproject/Admin/userdata/fetchuser.dart';
+import 'package:eproject/screen_Pages/login.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -29,7 +32,12 @@ class _DashboardPageState extends State<DashboardPage> {
             ListTile(
               title: Text("sdf"),
               subtitle: Text("sdf"),
-            )
+            ),
+            Spacer(),
+           TextButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Login(),));
+           }, child: Text("Logout"))
+
           ],
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eproject/screen_Pages/description.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MyHomepage extends StatefulWidget {
   const MyHomepage({Key? key}) : super(key: key);
@@ -10,7 +11,7 @@ class MyHomepage extends StatefulWidget {
 }
 
 class _MyHomepageState extends State<MyHomepage> {
-  bool _isSearchBarOpened = false;
+    bool _isSearchBarOpened = false;
 
   TextEditingController _reviewController = TextEditingController();
   double _rating = 0;
@@ -42,6 +43,9 @@ class _MyHomepageState extends State<MyHomepage> {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      endDrawer: Drawer(
+        backgroundColor: Colors.red,
+      ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         physics: ScrollPhysics(),
@@ -70,8 +74,10 @@ class _MyHomepageState extends State<MyHomepage> {
                     },
                     icon: Icon(Icons.search),
                   ),
-                  // SizedBox(width: 10),
-                  Icon(Icons.drag_handle),
+                  Builder(builder: (context) => IconButton(onPressed: (){
+                    Scaffold.of(context).openEndDrawer()  ;
+                  }, icon: Icon(Icons.drag_handle),
+                  ),)// SizedBox(width: 10),
                 ],
               ),
               SizedBox(height: 20),
@@ -151,11 +157,14 @@ class _MyHomepageState extends State<MyHomepage> {
               ),),
               SizedBox(height: 15,),
               TextFormField(
+                maxLength: 500,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(500)
+                ],
                 controller: _reviewController,
-                maxLines: null, // Allow multiline input
+                maxLines: 4 , // Allow multiline input
                 decoration: InputDecoration(
                   labelText: 'Review',
-                  hintText: 'Enter your review',
                   border: OutlineInputBorder(),
                 ),
               ),

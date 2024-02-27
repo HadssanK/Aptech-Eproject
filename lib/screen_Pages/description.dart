@@ -130,14 +130,21 @@ class _DescriptionState extends State<Description> {
                 fontWeight: FontWeight.bold
               ),
               ),
-              RatingBarIndicator(
-                  rating: 2.5,
-                  itemCount: 5,
-                  itemSize: 30.0,
-                  itemBuilder: (context, _) => const Icon(
-                    Icons.star,
-                    color: Colors.yellow,
-                  )),
+          RatingBar.builder(
+            initialRating: 3,
+            minRating: 1,
+            direction: Axis.horizontal,
+            allowHalfRating: true,
+            itemCount: 5,
+            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+            itemBuilder: (context, _) => Icon(
+              Icons.star,
+              color: Colors.amber,
+            ),
+              onRatingUpdate: (rating) {
+              print(rating);
+            },
+          ),
 
               SizedBox(height: 10,),
               Text("Description",style: TextStyle(

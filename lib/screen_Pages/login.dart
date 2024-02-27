@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'package:eproject/Admin/dashboard.dart';
 import 'package:eproject/main.dart';
+import 'package:eproject/screen_Pages/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,14 +18,19 @@ class _LoginState extends State<Login> {
   TextEditingController userPassword = TextEditingController();
   void login()async{
     try{
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: userEmail.text,
-          password: userPassword.text);
+      if(userEmail.text == "admin@gmail.com" && userPassword.text == "12345"){
+        Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardPage(),));
+      }
+    else{
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+            email: userEmail.text,
+            password: userPassword.text);
 
-      SharedPreferences Userdata = await SharedPreferences.getInstance();
-      Userdata.setString("email", userEmail.text);
+        SharedPreferences Userdata = await SharedPreferences.getInstance();
+        Userdata.setString("email", userEmail.text);
 
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Splash(),));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomepage(),));
+      }
     } on FirebaseAuthException catch(error){
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("${error.code.toString()}")));
     }

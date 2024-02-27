@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Expandable Drawer Menu',
-      home: MyHomepage(),
+      home: Splash(),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -60,7 +60,7 @@ class _RegisterState extends State<Splash> {
       }
       else{
         Timer(Duration(seconds: 5), () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => Login(),));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => Register(),));
         });      }
     },);
   }
